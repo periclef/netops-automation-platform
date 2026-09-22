@@ -1,0 +1,73 @@
+services:
+
+  r1:
+    image: frrouting/frr:latest
+    container_name: netops-r1
+    hostname: r1
+    privileged: true
+    volumes:
+      - ./frr/r1/daemons:/etc/frr/daemons
+      - ./frr/r1/vtysh.conf:/etc/frr/vtysh.conf
+      - ./frr/r1/frr.conf:/etc/frr/frr.conf
+    networks:
+      management:
+        ipv4_address: 10.10.0.11
+      r1_r2:
+        ipv4_address: 10.0.12.2
+
+  r2:
+    image: frrouting/frr:latest
+    container_name: netops-r2
+    hostname: r2
+    privileged: true
+    volumes:
+      - ./frr/r2/daemons:/etc/frr/daemons
+      - ./frr/r2/frr.conf:/etc/frr/frr.conf
+      - ./frr/r2/vtysh.conf:/etc/frr/vtysh.conf
+    networks:
+      management:
+        ipv4_address: 10.10.0.12
+      r1_r2:
+        ipv4_address: 10.0.12.3
+      r2_r3:
+        ipv4_address: 10.0.23.2
+
+  r3:
+    image: frrouting/frr:latest
+    container_name: netops-r3
+    hostname: r3
+    privileged: true
+    volumes:
+     - ./frr/r3/daemons:/etc/frr/daemons
+     - ./frr/r3/frr.conf:/etc/frr/frr.conf
+     - ./frr/r3/vtysh.conf:/etc/frr/vtysh.conf
+    networks:
+      management:
+        ipv4_address: 10.10.0.13
+      r2_r3:
+        ipv4_address: 10.0.23.3
+
+networks:
+
+  management:
+    name: netops-management
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.10.0.0/24
+
+  r1_r2:
+    name: netops-r1-r2
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: 10.0.12.0/29
+
+  r2_r3:
+    name: netops-r2-r3
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: 10.0.23.0/29
