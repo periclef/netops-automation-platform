@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=77.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "netops-automation-platform"
+version = "0.1.0"
+description = "A modular NetOps automation platform for network discovery, configuration management, validation, and troubleshooting."
+requires-python = ">=3.12"
+
+authors = [
+    { name = "Pericle Florea" }
+]
+
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["src"]
