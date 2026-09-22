@@ -12,7 +12,13 @@ authors = [
     { name = "Pericle Florea" }
 ]
 
-dependencies = []
+dependencies = [
+	"PyYAML>=6.0"
+]
 
 [tool.setuptools.packages.find]
 where = ["src"]
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+]
