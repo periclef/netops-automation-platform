@@ -7,7 +7,7 @@ from netops.compliance.engine import error_report, evaluate_device
 from netops.compliance.models import DeviceState, Status
 from netops.compliance.report import format_report
 from netops.connectors.frr_docker import FRRDockerConnector
-from netops.connectors.ssh import SSHConnector
+from netops.connectors.reachability import IcmpReachability
 from netops.inventory.loader import load_inventory
 
 EXIT_COMPLIANT = 0
@@ -55,7 +55,7 @@ def main() -> int:
             device for device in devices if device.name in args.device
         ]
 
-    reachability = SSHConnector()
+    reachability = IcmpReachability()
     frr_connector = FRRDockerConnector()
 
     print("NetOps Automation Platform - Configuration Compliance")

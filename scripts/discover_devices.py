@@ -1,7 +1,7 @@
 from netops.collectors.bgp import collect_bgp_summary, is_bgp_healthy
 from netops.collectors.device_info import collect_device_info
 from netops.connectors.frr_docker import FRRDockerConnector
-from netops.connectors.ssh import SSHConnector
+from netops.connectors.reachability import IcmpReachability
 from netops.inventory.loader import load_inventory
 from netops.validators.device import validate_device
 
@@ -9,7 +9,7 @@ from netops.validators.device import validate_device
 def main() -> None:
     devices = load_inventory("inventory/devices.yaml")
 
-    reachability = SSHConnector()
+    reachability = IcmpReachability()
     frr_connector = FRRDockerConnector()
 
     print("NetOps Automation Platform - Device Discovery")
