@@ -3,7 +3,6 @@ import pytest
 from netops.inventory.loader import load_inventory
 from netops.models.device import BgpNeighbor
 
-
 DEVICE_HEADER = """devices:
   r1:
     hostname: r1
