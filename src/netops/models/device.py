@@ -1,4 +1,10 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+
+
+@dataclass
+class BgpNeighbor:
+    address: str
+    remote_as: int
 
 
 @dataclass
@@ -10,3 +16,4 @@ class Device:
     role: str
     site: str
     asn: int
+    bgp_neighbors: list[BgpNeighbor] = field(default_factory=list)
