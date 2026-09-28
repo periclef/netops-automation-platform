@@ -1,10 +1,11 @@
 services:
 
   r1:
-    image: frrouting/frr:latest
+    image: frrouting/frr@sha256:990e83490108b686fd6df3b1cafa6bdbb2714acb00eedb9a89693946f46f45ce
     container_name: netops-r1
     hostname: r1
     privileged: true
+    restart: unless-stopped
     volumes:
       - ./frr/r1/daemons:/etc/frr/daemons
       - ./frr/r1/vtysh.conf:/etc/frr/vtysh.conf
@@ -16,10 +17,11 @@ services:
         ipv4_address: 10.0.12.2
 
   r2:
-    image: frrouting/frr:latest
+    image: frrouting/frr@sha256:990e83490108b686fd6df3b1cafa6bdbb2714acb00eedb9a89693946f46f45ce
     container_name: netops-r2
     hostname: r2
     privileged: true
+    restart: unless-stopped
     volumes:
       - ./frr/r2/daemons:/etc/frr/daemons
       - ./frr/r2/frr.conf:/etc/frr/frr.conf
@@ -33,14 +35,15 @@ services:
         ipv4_address: 10.0.23.2
 
   r3:
-    image: frrouting/frr:latest
+    image: frrouting/frr@sha256:990e83490108b686fd6df3b1cafa6bdbb2714acb00eedb9a89693946f46f45ce
     container_name: netops-r3
     hostname: r3
     privileged: true
+    restart: unless-stopped
     volumes:
-     - ./frr/r3/daemons:/etc/frr/daemons
-     - ./frr/r3/frr.conf:/etc/frr/frr.conf
-     - ./frr/r3/vtysh.conf:/etc/frr/vtysh.conf
+      - ./frr/r3/daemons:/etc/frr/daemons
+      - ./frr/r3/frr.conf:/etc/frr/frr.conf
+      - ./frr/r3/vtysh.conf:/etc/frr/vtysh.conf
     networks:
       management:
         ipv4_address: 10.10.0.13

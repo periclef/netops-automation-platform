@@ -38,6 +38,9 @@ edge-router                         core-router                         edge-rou
 - Each router advertises its loopback over eBGP.
 - Router configurations live in `lab/frr/<router>/frr.conf` and are
   bind-mounted into the containers.
+- The FRR image is pinned by digest (the FRR 8.4 build the lab was tested
+  with) and the containers use `restart: unless-stopped`, so the lab comes
+  back automatically after a host or Docker restart.
 - The automation runs commands with `docker exec <container> vtysh -c "<command>"`
   and checks reachability with ICMP ping to the management IP.
 
@@ -231,6 +234,9 @@ pytest -v
   is bounded by BGP timers.
 - Hostname drift cannot be reproduced in the lab: FRR daemons inherit the
   container hostname.
+- The lab containers run with `privileged: true`. FRR typically needs only
+  a few capabilities (`NET_ADMIN`, `NET_RAW`, `SYS_ADMIN`); this has not
+  been reduced yet.
 
 ## License
 
