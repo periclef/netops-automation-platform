@@ -7,6 +7,9 @@ devices:
     role: edge-router
     site: lab
     asn: 65001
+    bgp_neighbors:
+      - address: 10.0.12.3
+        remote_as: 65002
 
   r2:
     hostname: r2
@@ -15,6 +18,11 @@ devices:
     role: core-router
     site: lab
     asn: 65002
+    bgp_neighbors:
+      - address: 10.0.12.2
+        remote_as: 65001
+      - address: 10.0.23.3
+        remote_as: 65003
 
   r3:
     hostname: r3
@@ -23,3 +31,6 @@ devices:
     role: edge-router
     site: lab
     asn: 65003
+    bgp_neighbors:
+      - address: 10.0.23.2
+        remote_as: 65002
